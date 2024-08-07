@@ -11,7 +11,12 @@ public class PostService {
     PostRepository pr = new PostRepository();
 
     public void createPost(Post post) throws SQLException {
-        pr.createPost(post);
+        if(post.getNumber().length() == 9 || post.getNumber().length() == 12){
+            pr.createPost(post);
+        }
+        else{
+            throw new NumberFormatException();
+        }
     }
     public List<Post> getPosts() throws SQLException {
         return pr.getPosts();
