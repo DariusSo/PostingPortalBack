@@ -25,7 +25,7 @@ public class PostController {
             status = HttpStatus.CREATED;
             s = "Successfully posted";
         }catch (NumberFormatException e){
-            status = HttpStatus.NOT_IMPLEMENTED;
+            status = HttpStatus.BAD_REQUEST;
             s = "Bad number, try again";
         }catch (SQLException e){
             status = HttpStatus.NOT_IMPLEMENTED;
@@ -41,6 +41,19 @@ public class PostController {
         HttpStatus status;
         try{
             postList = ps.getPosts();
+            status = HttpStatus.OK;
+        }catch (SQLException e){
+            status = HttpStatus.NOT_IMPLEMENTED;
+        }
+        return new ResponseEntity<>(postList, status);
+    }
+    @CrossOrigin
+    @GetMapping("/getMorePosts")
+    public ResponseEntity<List<Post>> getMorePosts(int id) throws SQLException {
+        List<Post> postList = new ArrayList<>();
+        HttpStatus status;
+        try{
+            postList = ps.getMorePosts(id);
             status = HttpStatus.OK;
         }catch (SQLException e){
             status = HttpStatus.NOT_IMPLEMENTED;

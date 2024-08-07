@@ -21,4 +21,7 @@ public class PostService {
     public List<Post> getPosts() throws SQLException {
         return pr.getPosts();
     }
+    public List<Post> getMorePosts(int id) throws SQLException {
+        return pr.getMorePosts(id);
+    }
 }

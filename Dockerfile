@@ -8,7 +8,7 @@ RUN apt-get update &&  \
 
 WORKDIR /app
 
-RUN git clone https://github.com/DariusSo/DockerBandymas.git .
+RUN git clone https://github.com/DariusSo/PostingPortalBack.git .
 
 
 RUN mvn clean package

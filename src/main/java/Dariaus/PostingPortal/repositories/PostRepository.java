@@ -24,7 +24,20 @@ public class PostRepository {
     public List<Post> getPosts() throws SQLException {
         List<Post> postList = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        PreparedStatement ps = Connect.SQLConnection("SELECT * FROM posts ORDER BY id DESC");
+        PreparedStatement ps = Connect.SQLConnection("SELECT * FROM posts ORDER BY id DESC LIMIT 20");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            Post post = new Post(rs.getInt("id"), rs.getString("title"), rs.getString("content"),
+                    rs.getString("number"), LocalDateTime.parse(rs.getString("created_at"), formatter));
+            postList.add(post);
+        }
+        return postList;
+    }
+    public List<Post> getMorePosts(int id) throws SQLException {
+        List<Post> postList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        PreparedStatement ps = Connect.SQLConnection("SELECT * FROM posts WHERE id < ? ORDER BY id DESC LIMIT 20");
+        ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             Post post = new Post(rs.getInt("id"), rs.getString("title"), rs.getString("content"),
