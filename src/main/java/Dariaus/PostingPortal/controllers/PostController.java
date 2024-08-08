@@ -5,10 +5,12 @@ import Dariaus.PostingPortal.services.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class PostController {
@@ -59,5 +61,11 @@ public class PostController {
             status = HttpStatus.NOT_IMPLEMENTED;
         }
         return new ResponseEntity<>(postList, status);
+    }
+    @CrossOrigin
+    @GetMapping("/redirect")
+    public RedirectView redirect(UUID uniqueKey) throws SQLException {
+        ps.createPostWithPayment(uniqueKey);
+        return new RedirectView("http://127.0.0.1:5500/index.html");
     }
 }

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Connect {
 
-    private static final String URL = "jdbc:mysql://host.docker.internal:3307/PostingPortal";
+    private static final String URL = "jdbc:mysql://localhost:3307/PostingPortal";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
 

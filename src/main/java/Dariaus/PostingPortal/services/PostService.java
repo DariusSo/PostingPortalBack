@@ -5,6 +5,7 @@ import Dariaus.PostingPortal.repositories.PostRepository;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 public class PostService {
 
@@ -23,5 +24,8 @@ public class PostService {
     }
     public List<Post> getMorePosts(int id) throws SQLException {
         return pr.getMorePosts(id);
+    }
+    public void createPostWithPayment(UUID uniqueKey) throws SQLException {
+        pr.createPostWithPayment(uniqueKey);
     }
 }

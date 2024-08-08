@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PostRepository {
 
@@ -45,5 +46,26 @@ public class PostRepository {
             postList.add(post);
         }
         return postList;
+    }
+    public static void pendingPost(String title, String number, String content, UUID uniqueKey) throws SQLException {
+        PreparedStatement ps = Connect.SQLConnection("INSERT INTO pending_posts (title, number, content, uid) VALUES (?,?,?,?)");
+        ps.setString(1, title);
+        ps.setString(2, number);
+        ps.setString(3, content);
+        ps.setString(4, String.valueOf(uniqueKey));
+        ps.execute();
+    }
+    public void createPostWithPayment(UUID uniqueKey) throws SQLException {
+        PreparedStatement psRetrievePost = Connect.SQLConnection("SELECT * FROM pending_posts WHERE uid = ?");
+        psRetrievePost.setString(1, String.valueOf(uniqueKey));
+        ResultSet rs = psRetrievePost.executeQuery();
+        if(rs.next()){
+            PreparedStatement ps = Connect.SQLConnection("INSERT INTO posts (title, content, number, created_at) VALUES (?,?,?,?)");
+            ps.setString(1, rs.getString("title"));
+            ps.setString(2, rs.getString("content"));
+            ps.setString(3, rs.getString("number"));
+            ps.setString(4, String.valueOf(LocalDateTime.now()));
+            ps.execute();
+        }
     }
 }
