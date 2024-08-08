@@ -40,8 +40,8 @@ public class StripeService {
         PostRepository.pendingPost(title, number, content, uniqueKey);
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:8080/redirect?uniqueKey=" + uniqueKey)
-                .setCancelUrl("http://127.0.0.1:5500/index.html")
+                .setSuccessUrl("http://host.docker.internal:8080/redirect?uniqueKey=" + uniqueKey)
+                .setCancelUrl("http://host.docker.internal:7777/index.html")
                 .addLineItem(SessionCreateParams.LineItem.builder()
                         .setQuantity(1L)
                         .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
