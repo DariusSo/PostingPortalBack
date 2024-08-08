@@ -66,6 +66,6 @@ public class PostController {
     @GetMapping("/redirect")
     public RedirectView redirect(UUID uniqueKey) throws SQLException {
         ps.createPostWithPayment(uniqueKey);
-        return new RedirectView("http://host.docker.internal/index.html");
+        return new RedirectView("http://localhost:7777/index.html");
     }
 }
