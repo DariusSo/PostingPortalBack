@@ -40,7 +40,7 @@ public class StripeService {
         PostRepository.pendingPost(title, number, content, uniqueKey);
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:7777/redirect?uniqueKey=" + uniqueKey)
+                .setSuccessUrl("http://localhost:8080/redirect?uniqueKey=" + uniqueKey)
                 .setCancelUrl("http://localhost:7777/index.html")
                 .addLineItem(SessionCreateParams.LineItem.builder()
                         .setQuantity(1L)
