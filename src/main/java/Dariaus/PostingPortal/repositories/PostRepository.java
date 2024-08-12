@@ -68,4 +68,9 @@ public class PostRepository {
             ps.execute();
         }
     }
+    public static void removePending(UUID uniqueKey) throws SQLException {
+        PreparedStatement ps = Connect.SQLConnection("DELETE FROM pending_posts WHERE uid = ?");
+        ps.setString(1, String.valueOf(uniqueKey));
+        ps.execute();
+    }
 }

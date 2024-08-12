@@ -1,6 +1,7 @@
 package Dariaus.PostingPortal.controllers;
 
 import Dariaus.PostingPortal.models.Post;
+import Dariaus.PostingPortal.repositories.PostRepository;
 import Dariaus.PostingPortal.services.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +67,7 @@ public class PostController {
     @GetMapping("/redirect")
     public RedirectView redirect(UUID uniqueKey) throws SQLException {
         ps.createPostWithPayment(uniqueKey);
+        PostRepository.removePending(uniqueKey);
         return new RedirectView("http://localhost:7777/index.html");
     }
 }
